@@ -7,7 +7,7 @@ class LoginController extends Controller
 {
     public function index(){
         $this->render('login', [
-            'deger' => 'Çağla Öztürk!'
+            'deger' => 'Woman Developer!'
         ]);
     }
 }

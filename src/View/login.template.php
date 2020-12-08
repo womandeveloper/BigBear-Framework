@@ -29,7 +29,7 @@
             <img src="assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
             <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span></h4>
             <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
-            <form method="POST" action="<?=$this->helper->url('/login');?>" class="needs-validation" novalidate="">
+            <form method="post" action="<?=$this->helper->url('/login');?>" class="needs-validation" novalidate="">
               <div class="form-group">
                 <label for="email">Email</label>
                 <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>

@@ -6,6 +6,8 @@ use \PDO;
 
 class UserModel extends Model
 {
+    protected $tableName = 'users';
+    
     public function getUserByCredentials($username, $password)
     {
         $query = $this->getConnection()->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
@@ -25,21 +27,13 @@ class UserModel extends Model
     {
         $query = $this->getConnection()->prepare("SELECT * FROM users");
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
 
     public function getUser($userId)
     {
-        $query = $this->getConnection()->prepare("SELECT * FROM users WHERE user_id = :id");
-        $query->bindValue(':id', $userId, PDO::PARAM_INT);
-        $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($result)) {
-            $result = $result[0];
-        } else {
-            $result = null;
-        }
+        $result = $this->where('user_id', $userId)->fetch();
         return $result;
     }
 

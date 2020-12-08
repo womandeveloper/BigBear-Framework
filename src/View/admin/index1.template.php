@@ -1,1 +1,0 @@
-<h1>Çağla Öztürk <?=$deger?>  </h1>

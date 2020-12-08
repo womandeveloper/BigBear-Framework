@@ -10,12 +10,6 @@ class AdminController extends Controller
             $this->redirect('/login');
         }
     }
-
-    public function index(){
-        $this->render('admin/index1', [
-            'deger' => 'Çağla Öztürk!'
-        ]);
-    }
 }
 
 

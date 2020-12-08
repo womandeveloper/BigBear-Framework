@@ -605,6 +605,14 @@ select.form-control:not([size]):not([multiple]) {
   border: none;
   position: relative;
   margin-bottom: 30px; }
+  .card .card-header a{
+    width:200px!important;
+    height: 40px;
+    line-height: 35px;
+    right:2rem;
+    border-radius:5px!important;
+    position:absolute;
+  }
   .card .card-header, .card .card-body, .card .card-footer {
     background-color: transparent;
     padding: 20px 25px; }

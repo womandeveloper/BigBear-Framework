@@ -32,6 +32,11 @@ class Model
         return $this->getSQL();
     }
 
+    public function selects(){
+        $this->sql = sprintf("SELECT * FROM %s",$this->tableName);
+        return $this;
+    }
+
     public function select($columns){
         $this->columns = [];
         if(!is_array($columns)){
@@ -47,7 +52,7 @@ class Model
     public function where(){
         $validValues = [
             'boolean' => ['and', 'or', 'not'],
-            'operator' => ['<', '>', '<=', '>=', '==']
+            'operator' => ['<', '>', '<=', '>=', '=']
         ];
         $num_args = func_num_args();
         $boolean = 'and';
@@ -55,18 +60,36 @@ class Model
         switch ($num_args){
             case 2: 
                 list($column,$value) = func_get_args();
+                $this->sql = sprintf("SELECT * FROM %s WHERE %s %s %s",$this->tableName, $column, $operator, $value);
                 break;
             case 3:
                 list($column,$operator,$value) = func_get_args();
+                $this->sql = sprintf("SELECT * FROM %s WHERE %s %s %s",$this->tableName, $column, $operator, $value);
                 break;
             case 4:
-                list($column,$operator,$value,$boolean) = func_get_args();
+                list($column,$operator,$value,$boolean,$column2,$operator2,$value2) = func_get_args();
+                $this->sql = sprintf("SELECT * FROM %s WHERE %s %s %s %s %s %s",$this->tableName, $column, $operator, $value, $boolean, $column2,$operator2,$value2);
                 break;
             default:
                 throw new \Exception();              
-        }
-        printf("<br/>Column: %s, Value: %s, Operator: %s, Boolean: %s",$column,$value, $operator, $boolean);
+        }        
+        return $this;
 
+        printf("<br/>Column: %s, Value: %s, Operator: %s, Boolean: %s",$column,$value, $operator, $boolean);
+    }
+
+    public function fetchAll(){
+        $query = $this->getConnection()->prepare($this->sql);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
+
+    public function fetch(){
+        $query = $this->getConnection()->prepare($this->sql);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
     }
 
     /*orWhere
